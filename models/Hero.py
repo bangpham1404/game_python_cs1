@@ -1,6 +1,7 @@
 import pygame
 from setting import Status_Hero,Direction
 from models.Bullet import Bullet
+import json
 class Hero:
     def __init__(self):
         self.image = pygame.image.load('./images/right/hero/freeze/0.png')
@@ -14,12 +15,27 @@ class Hero:
         self.speed = 10
         self.live = 3
         self.score = 0
+        self.file_name = 'save_file.json'
         # Setup sự kiện nhảy (jump)
         self.speed_jump = -50 #Tốc độ nhảy
         self.gravity = 5 #Trọng lực
         self.jump_velocity = 0 #Vận tốc nhảy ban đầu
         self.jumping = False
-        
+
+    def load_game(self):
+        with open(self.file_name, 'r') as json_file:
+            data = json.load(json_file)
+            self.score = data["score"]
+
+    def save_game(self):
+        save_file = 'save_file.json'
+        data = {
+            "score": self.score
+        }
+        with open(save_file,'w') as json_file:
+            json.dump(data,json_file)
+
+
     def jump(self):
         if not self.jumping:
             self.jumping = True

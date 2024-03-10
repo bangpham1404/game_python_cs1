@@ -12,10 +12,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 #Khai báo nhân vật hero
 hero:Hero = Hero()
-
+hero.load_game
 #Khai báo list soldier
 lst_soldier:list[Soldier] = []
-lst_hero:list[Hero] = []
 # soldier = Soldier()
 # soldier.rect.x = 1000
 # soldier.direction = Direction.LEFT
@@ -50,6 +49,7 @@ while running:
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            hero.save_game()
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_j:
